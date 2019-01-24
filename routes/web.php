@@ -15,11 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::post('/api/login', 'Usercontroller@login');
-//Route::resource('api/calc/datum','CalculationController');
 
- 
+//routes for the Api
+Route::Resource('calc/datum','CalculationController'); 
 
+//routes for the register and login pages
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

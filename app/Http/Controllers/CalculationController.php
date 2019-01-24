@@ -71,9 +71,9 @@ class CalculationController extends Controller
         $data['Ryuk'] = round($spreadsheet->getActiveSheet()->getCell('R251')->getCalculatedValue(), 5);
 
         /** return the output $data encoded to json format */
-        //return json_encode($data);
         return response()->json($data);   
 
+        /** TO DO: handle exceptions */
     }
 
     /**
