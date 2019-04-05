@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 
 //routes for the Api
-Route::Resource('calc/datum','CalculationController'); 
+Route::Resource('/api/calc/datum','CalculationController'); 
 
 //routes for the register and login pages
 Auth::routes();

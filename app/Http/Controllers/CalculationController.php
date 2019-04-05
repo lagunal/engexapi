@@ -32,12 +32,13 @@ class CalculationController extends Controller
     {
 
         /** loads the excel file */
-        $spreadsheet = IOFactory::load('assets/DatumSuspendedCanopyLudwing.xlsx');
+        $spreadsheet = IOFactory::load('assets/Datum Suspended Canopy Calculator v22.xlsx');
      
         /** loads the active sheetname */
         $spreadsheet->getSheetByName('HTML Frame');
 
         /** assign the input values to the excel spreadsheet */
+        /** INPUT: Put cells numbers for input values. Ex. D15 for Vult *************/
         $spreadsheet->getActiveSheet()->setCellValue('D15', $request->Vult)
                                             ->setCellValue('D17', $request->Exp)
                                             ->setCellValue('D19', $request->Risk)
@@ -56,19 +57,23 @@ class CalculationController extends Controller
 
 
         /** calculates the values on the excel spreadsheet */
-        $data['HAS'] = round($spreadsheet->getActiveSheet()->getCell('F245')->getCalculatedValue(), 5);
-        $data['_KS'] = round($spreadsheet->getActiveSheet()->getCell('F249')->getCalculatedValue(), 5);
-        $data['_O'] = round($spreadsheet->getActiveSheet()->getCell('F253')->getCalculatedValue(), 5);
+        /** OUTPUT: put cells numbers for output calculated values. Ex. F248 for HAS. *********/
+        $data['HAS'] = round($spreadsheet->getActiveSheet()->getCell('F248')->getCalculatedValue(), 5);
+        $data['_KS'] = round($spreadsheet->getActiveSheet()->getCell('F252')->getCalculatedValue(), 5);
+        $data['_O'] = round($spreadsheet->getActiveSheet()->getCell('F256')->getCalculatedValue(), 5);
 
-        $data['Rxgh'] = round($spreadsheet->getActiveSheet()->getCell('L245')->getCalculatedValue(), 5);
-        $data['Rxuh'] = round($spreadsheet->getActiveSheet()->getCell('L247')->getCalculatedValue(), 5);
-        $data['Rygh'] = round($spreadsheet->getActiveSheet()->getCell('R245')->getCalculatedValue(), 5);
-        $data['Ryuh'] = round($spreadsheet->getActiveSheet()->getCell('R247')->getCalculatedValue(), 5);
+        $data['Rxgh'] = round($spreadsheet->getActiveSheet()->getCell('L248')->getCalculatedValue(), 5);
+        $data['Rxuh'] = round($spreadsheet->getActiveSheet()->getCell('L250')->getCalculatedValue(), 5);
+        $data['Rygh'] = round($spreadsheet->getActiveSheet()->getCell('R248')->getCalculatedValue(), 5);
+        $data['Ryuh'] = round($spreadsheet->getActiveSheet()->getCell('R250')->getCalculatedValue(), 5);
 
-        $data['Rxgk'] = round($spreadsheet->getActiveSheet()->getCell('L249')->getCalculatedValue(), 5);
-        $data['Rxuk'] = round($spreadsheet->getActiveSheet()->getCell('L251')->getCalculatedValue(), 5);
-        $data['Rygk'] = round($spreadsheet->getActiveSheet()->getCell('R249')->getCalculatedValue(), 5);
-        $data['Ryuk'] = round($spreadsheet->getActiveSheet()->getCell('R251')->getCalculatedValue(), 5);
+        $data['Rxgk'] = round($spreadsheet->getActiveSheet()->getCell('L252')->getCalculatedValue(), 5);
+        $data['Rxuk'] = round($spreadsheet->getActiveSheet()->getCell('L254')->getCalculatedValue(), 5);
+        $data['Rygk'] = round($spreadsheet->getActiveSheet()->getCell('R252')->getCalculatedValue(), 5);
+        $data['Ryuk'] = round($spreadsheet->getActiveSheet()->getCell('R254')->getCalculatedValue(), 5);
+
+        $data['WPpos'] = round($spreadsheet->getActiveSheet()->getCell('G82')->getCalculatedValue(), 5);
+        $data['WPneg'] = round($spreadsheet->getActiveSheet()->getCell('N82')->getCalculatedValue(), 5);
 
         /** return the output $data encoded to json format */
         return response()->json($data);   
