@@ -32,7 +32,7 @@ class CalculationController extends Controller
     {
 
         /** loads the excel file */
-        $spreadsheet = IOFactory::load('assets/Datum Suspended Canopy Calculator v22.xlsx');
+        $spreadsheet = IOFactory::load('assets/DatumSuspendedCanopyCalculatorv22.xlsx');
      
         /** loads the active sheetname */
         $spreadsheet->getSheetByName('HTML Frame');
