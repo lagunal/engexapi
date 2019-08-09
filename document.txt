@@ -1,0 +1,102 @@
+
+URL Live server
+https://api.engineeringexpress.com/calc/datum
+https://api.engineeringexpress.com/oauth/token
+
+URL staging server
+http://engexapi.com/api/calc/datum
+http://engexapi.com/oauth/token
+
+
+
+*********** Email sent to Alexis (Latest updates to API (Datum)) ***********************
+
+I tested API on staging and it is working properly.
+
+Since I can't access live server, please substitute the attached file CalculationController.php on liver server.
+You can find also this file on staging on /var/www/engexapi/app/Http/Controllers/CalculationController.php.
+Please do a backup of the file on live server before replace it.
+The excel file should be at this folder: var/www/vhosts/engexapi/assets/DatumSuspendedCanopyCalculatorv22.xlsx
+
+Added 2 new values to the response:
+- wind pressure positive and negative
+
+- Example of the response:
+{
+    "HAS": 7.5,
+    "_KS": 52.29137,
+    "_O": 3.75,
+    "Rxgh": 3397.09887,
+    "Rxuh": -1276.76274,
+    "Rygh": -1908.48251,
+    "Ryuh": 717.28244,
+    "Rxgk": -1971.30197,
+    "Rxuk": 740.89245,
+    "Rygk": 371.0035,
+    "Ryuk": -139.43767,
+    "WPpos": 49.80161,
+    "WPneg": -31.56602
+}
+
+************ To test API (Datum) in Live server *******************************
+
+You can test with the following instructions:
+
+1. For authentication and get your token, please do a POST request to api.engineeringexpress.com/oauth/token.
+Inside the body of the request put the following json:
+{
+	"grant_type" : "password",
+	"client_id" : "2",
+	"client_secret" : "Wk9kQfkw4eAIoJzhTXwRcMWnUckYzxqQtQdnGXCu",
+	"username" : " test123@test.com",
+	"password" : "123456"
+}
+
+2. You will get your "access_token" in the json response. That is the token you must use for doing the request to the API. 
+After you have your token, do a GET request to api.engineeringexpress.com/calc/datum.
+The Authorization token should be on the Header of the request.  
+Inside the body of the request put your input values like the following example:
+{
+ "Vult": "175",
+ "Exp":"C",
+ "Risk":"II",
+ "Snow": "0",
+ "MRH": "30",
+ "URL": "120",
+ "_P": "8",
+ "_AA": "2.66",
+ "_AH": "3",
+ "_CH": "10",
+ "_AT": "1",
+ "_GT": "1",
+ "TopCon": "5",
+ "BotCon": "1"
+}
+
+After that you will get the json response from the API, like this:
+{
+    "HAS": 8,
+    "_KS": 54.24512,
+    "_O": 4,
+    "Rxgh": 3367.25212,
+    "Rxuh": -1515.67226,
+    "Rygh": -1891.71468,
+    "Ryuh": 851.50127,
+    "Rxgk": -1900.30153,
+    "Rxuk": 855.3664,
+    "Rygk": 357.64106,
+    "Ryuk": -160.98192
+}
+
+**********************************************************************************
+
+The heart of the calculation is the file: /var/www/engexapi/app/Http/Controllers/CalculationController.php
+Please see the comments in this file for explanation on how API builds the response.
+
+*********************************************************************************
+
+
+
+
+
+
